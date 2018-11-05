@@ -48,17 +48,21 @@
   <script src="/node_modules/jquery/dist/jquery.min.js"></script>
   <script>
     $(function () {
-      $('#form').on('sumbit', function (e) {
+      $('#form').on('submit', function (e) {
         e.preventDefault();
         $.ajax({
           url:'/login',
           type:'post',
-          data:$('#form').serialize();
+          data:$('#form').serialize(),
           dataType:'json',
           success:function(res){
             console.log(res);
             
-          }
+            if(res.status == 200){
+              alert(res.msg);
+              location.href = '/'
+            } 
+          },
         })
       })
     })
