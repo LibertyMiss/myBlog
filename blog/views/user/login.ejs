@@ -32,7 +32,8 @@
     </div>
 
     <div class="form-group">
-      <input type="password" name="password" id="password" class="form-control input-lg" placeholder="密码" required value="123">
+      <input type="password" name="password" id="password" class="form-control input-lg" placeholder="密码" required
+        value="123">
     </div>
 
     <div class="form-group">
@@ -47,20 +48,16 @@
   <script src="/node_modules/jquery/dist/jquery.min.js"></script>
   <script>
     $(function () {
-      $('#form').on('submit', function (e) {
-        // 组织表单的默认提交行为
-        e.preventDefault()
+      $('#form').on('sumbit', function (e) {
+        e.preventDefault();
         $.ajax({
-          url: '/login',
-          data: $('#form').serialize(),
-          type: 'POST',
-          dataType: 'json',
-          success: function (result) {
-            if (result.status !== 200) {
-              // 登录失败
-              return alert(result.msg)
-            }
-            location.href = '/'
+          url:'/login',
+          type:'post',
+          data:$('#form').serialize();
+          dataType:'json',
+          success:function(res){
+            console.log(res);
+            
           }
         })
       })
