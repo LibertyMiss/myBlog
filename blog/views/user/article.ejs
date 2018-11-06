@@ -1,14 +1,13 @@
-
 <%- include('../common/header.ejs') %>
-<!-- <link rel="stylesheet" href="/node_modules">
-<script src="/node_modules/mditor/dist/js/mditor.min.js"></script> -->
+<link rel="stylesheet" href="/node_modules/mditor/dist/css/mditor.min.css">
+<script src="/node_modules/mditor/dist/js/mditor.min.js"></script>
 
 <div class="container">
     <h1>发表文章页</h1>
     <hr>
     <form id="form">
         <!-- 在进入文章添加页面的一瞬间，就立即把 文章的 作者Id，保存到 一个隐藏域中，防止 session 失效的问题 -->
-        <input type="hidden" name="authorId" value="<%= user.id %>">
+        <!-- <input type="hidden"> -->
         <div class="form-group">
             <label>文章标题：</label>
             <input type="text" name="title" class="form-control" required>
@@ -24,4 +23,21 @@
         </div>
     </form>
 </div>
+<script>
+    $(function () {
+        var mditor = Mditor.fromTextarea(document.getElementById('editor'));
+        $('#form').on('submit', function () {
+            $.ajax({
+                url: '/article',
+                type: 'post',
+                dataType: "json",
+                data: $('#form').serialize(),
+                success: function (result) {
+                    location.href = '/article/info/' + result.articleId
+                }
+            })
+            return false
+        })
+    })
+</script>
 <%- include('../common/footer.ejs') %>

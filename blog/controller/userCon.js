@@ -1,5 +1,6 @@
 const moment = require('moment')
 const conn = require('../db/db.js')
+const path = require('path')
 
 module.exports = {
     showRegisterPage: (req, res) => {
@@ -10,7 +11,7 @@ module.exports = {
     },
     reg: (req, res) => {
         const body = req.body
-        console.log(body);
+        // console.log(body);
         if ((body.username.trim().length == 0) || (body.password.trim().length == 0) || (body.password.trim().length == 0)) {
             return res.send({
                 status: 400,
@@ -87,10 +88,42 @@ module.exports = {
             })
         })
     },
-    logout:(req,res) => {
-        req.session.destroy( (err) => {
+    logout: (req, res) => {
+        req.session.destroy((err) => {
             //此方法让客户端重新定位路径访问
             res.redirect('/')
+        })
+    },
+    article: (req, res) => {
+        const body = req.body
+
+        body.ctime = moment().format('YYYY-MM-DD HH:mm:ss')
+        //添加内容到数据库语句
+        const artSql = 'insert into text set ?'
+        // console.log(req.session.user.id);
+        
+        body.author_id = req.session.user.id
+        // console.log(body)
+        conn.query(artSql, body, (err, result) => {
+            console.log(result);
+            if (err) {
+                console.log(err);
+                return res.send({
+                    status: 500,
+                    msg: '插入失败'
+                });
+            }
+            res.send({
+                status: 200,
+                msg: '插入成功',
+                articleId: result.insertId
+            })
+        })
+    },
+    info: (req,res) => {
+        res.render('../views/article/info.ejs', {
+            user: req.session.user,
+            isLogin: req.session.isLogin
         })
     }
 }

@@ -16,5 +16,10 @@ router.post('/register', conSql.reg)
 router.post('/login', conSql.login)
 
 router.get('/logout', conSql.logout)
+//收集文章信息
+router.post('/article', conSql.article)
 
+// 跳转到详情页
+router.post('/article/info/:id', conSql.info)
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
 module.exports = router
