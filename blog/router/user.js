@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const conSql = require('../controller/userCon.js')
 
+//分发路由
 //模板渲染注册页面
 router.get('/register', conSql.showRegisterPage)
 
@@ -13,5 +14,7 @@ router.post('/register', conSql.reg)
 
 // 登陆api
 router.post('/login', conSql.login)
+
+router.get('/logout', conSql.logout)
 
 module.exports = router

@@ -76,10 +76,21 @@ module.exports = {
                     msg: "登录失败"
                 })
             }
+            //登陆成功后存储用户信息到服务器
+            req.session.user = result[0]
+            req.session.isLogin = true
+            let hour = 3600000
+            req.session.cookie.expires = new Date(Date.now() + hour)
             res.send({
                 status: 200,
                 msg: '成功'
             })
         })
     },
+    logout:(req,res) => {
+        req.session.destroy( (err) => {
+            //此方法让客户端重新定位路径访问
+            res.redirect('/')
+        })
+    }
 }
