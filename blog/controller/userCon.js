@@ -60,7 +60,7 @@ module.exports = {
     },
     login: (req, res) => {
         const body = req.body
-        console.log(body);
+        // console.log(body);
         const loginSql = "select * from users where username = ? and password = ?"
         conn.query(loginSql, [body.username, body.password], (err, result) => {
             if (err) {
@@ -69,7 +69,7 @@ module.exports = {
                     msg: '登陆失败'
                 })
             }
-            console.log(result);
+            // console.log(result);
             // 判断是否匹配成功,有没有返回数据
             if (result.length != 1) {
                 return res.send({
@@ -120,10 +120,5 @@ module.exports = {
             })
         })
     },
-    info: (req,res) => {
-        res.render('../views/article/info.ejs', {
-            user: req.session.user,
-            isLogin: req.session.isLogin
-        })
-    }
+    
 }

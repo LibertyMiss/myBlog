@@ -1,12 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
-    <h1>这是详情页</h1>
-</body>
-</html>
+<%- include('../common/header.ejs') %>
+<div class="container">
+    <h1 class="text-center">
+        <%=article.title %>
+        <a class="btn btn-info pull-right" href="/article/edit/<%=article.id%>">编辑</a>
+    </h1>
+    <hr>
+    <div>
+        <%-article.content%>
+    </div>
+</div>
+
+
+<%- include('../common/footer.ejs') %>
